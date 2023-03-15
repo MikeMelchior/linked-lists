@@ -17,7 +17,7 @@ class LinkedList {
     }
 
     size () {
-        return this.list.length
+        return this.list.length;
     }
 
     head () {
@@ -25,11 +25,11 @@ class LinkedList {
     }
 
     tail () {
-        return this.list[this.list.length -1]
+        return this.list[this.list.length -1];
     }
 
     at (index) {
-        return this.list[index]
+        return this.list[index];
     }
 
     pop () {
@@ -40,10 +40,10 @@ class LinkedList {
     contains (value) {
         for (let node of this.list) {
             if (node.value == value) {
-                return true
+                return true;
             }
         }
-        return false
+        return false;
     }
 
     find (value) {
@@ -52,7 +52,16 @@ class LinkedList {
                 return this.list.indexOf(node);
             }
         }
-        return null
+        return null;
+    }
+
+    toString () {
+        let string = '';
+        this.list.forEach(node => {
+            string+= `( ${node.value} ) -> `;
+        });
+        string+= 'null';
+        return string;
     }
 
 }
@@ -67,7 +76,6 @@ class Node {
 let linked = new LinkedList;
 linked.append('appended');
 linked.prepend('prepended');
-
 linked.append('im a new node');
 
-console.log(linked.find('im  a new node'));
+console.log(linked.toString());
