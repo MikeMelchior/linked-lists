@@ -37,6 +37,15 @@ class LinkedList {
         this.list[this.list.length-1].nextNode = null;
     }
 
+    contains (value) {
+        for (let node of this.list) {
+            if (node.value == value) {
+                return true
+            }
+        }
+        return false
+    }
+
 }
 
 class Node {
@@ -50,4 +59,6 @@ let linked = new LinkedList;
 linked.append('appended');
 linked.prepend('prepended');
 
-console.log(linked);
+linked.append('im a new node');
+
+console.log(linked.contains('aappended'));
