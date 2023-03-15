@@ -46,6 +46,15 @@ class LinkedList {
         return false
     }
 
+    find (value) {
+        for (let node of this.list) {
+            if (node.value == value) {
+                return this.list.indexOf(node);
+            }
+        }
+        return null
+    }
+
 }
 
 class Node {
@@ -61,4 +70,4 @@ linked.prepend('prepended');
 
 linked.append('im a new node');
 
-console.log(linked.contains('aappended'));
+console.log(linked.find('im  a new node'));
