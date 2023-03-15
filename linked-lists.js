@@ -6,6 +6,11 @@ class LinkedList {
     append(value) {
         let newNode = new Node;
         newNode.value = value;
+        // if list is not empty then change pointer
+        // of last element to point to appended element
+        if (this.list.length > 0) {
+            this.list[this.list.length - 1].nextNode = newNode;
+        }
         this.list.push(newNode);
     }
 
@@ -76,6 +81,15 @@ class LinkedList {
         this.list.push(...listA, value, ...listB);
     }
 
+    removeAt (index) {
+        let listA = this.list.splice(0, index);
+        let listB = this.list.splice(0);
+        listB.shift();
+        
+        listA[index-1].nextNode = listB[0];
+        this.list.push(...listA, ...listB);
+    }
+
 }
 
 class Node {
@@ -86,11 +100,26 @@ class Node {
 }
 
 let linked = new LinkedList;
-linked.append('appended');
-linked.prepend('prepended');
-linked.append('im a new node');
 
-let x = new Node('inserted at 2nd index');
-linked.insertAt(x, 2)
+linked.append('a');  // linked == ( a ) -> null
+linked.prepend('b'); // linked == ( b ) -> ( a ) -> null
+linked.append('c'); // linked == ( b ) -> ( a ) -> ( c ) -> null
 
-console.log(linked.toString())
+// linked.size() ...  3
+// linked.head() ... Node {nextNode: Node, value: 'b'}
+// linked.tail() ... Node {nextNode: Node, value: 'c'}
+// linked.at(1) ... Node {nextNode: Node, value: 'a'}
+// linked.pop() ... '( b ) -> ( a ) -> null'
+// linked.contains('c') ... true;
+// linked.contains('d') ... false;
+// linked.find('a') ... 1;
+// linked.toString() ... '( b ) -> ( a ) -> ( c ) -> null'
+
+// let someNode = new Node('d');
+// linked.insertAt(someNode, 2)
+// linked.toString() ... ( b ) -> ( a ) -> ( d ) -> ( c ) -> null
+
+// linked.removeAt(2)
+// linked.toString() ... ( b ) -> ( a ) -> null
+
+
