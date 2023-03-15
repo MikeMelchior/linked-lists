@@ -64,12 +64,24 @@ class LinkedList {
         return string;
     }
 
+    insertAt (value, index) {
+        let listA = this.list.splice(0, index);
+        let listB = this.list.splice(0);
+        // change element to left of 
+        // insert's next pointer
+        listA[index - 1].nextNode = value;
+        // add next pointer to new node
+        value.nextNode = listB[0]
+        // add all parts back into list
+        this.list.push(...listA, value, ...listB);
+    }
+
 }
 
 class Node {
-    constructor() {
+    constructor(value=null) {
         this.nextNode = null;
-        this.value = null;
+        this.value = value;
     }
 }
 
@@ -78,4 +90,7 @@ linked.append('appended');
 linked.prepend('prepended');
 linked.append('im a new node');
 
-console.log(linked.toString());
+let x = new Node('inserted at 2nd index');
+linked.insertAt(x, 2)
+
+console.log(linked.toString())
