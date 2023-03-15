@@ -28,6 +28,15 @@ class LinkedList {
         return this.list[this.list.length -1]
     }
 
+    at (index) {
+        return this.list[index]
+    }
+
+    pop () {
+        this.list.pop();
+        this.list[this.list.length-1].nextNode = null;
+    }
+
 }
 
 class Node {
@@ -41,4 +50,4 @@ let linked = new LinkedList;
 linked.append('appended');
 linked.prepend('prepended');
 
-console.log(linked.tail());
+console.log(linked);
