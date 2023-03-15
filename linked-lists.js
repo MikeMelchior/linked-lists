@@ -20,6 +20,14 @@ class LinkedList {
         return this.list.length
     }
 
+    head () {
+        return this.list[0];
+    }
+
+    tail () {
+        return this.list[this.list.length -1]
+    }
+
 }
 
 class Node {
@@ -33,4 +41,4 @@ let linked = new LinkedList;
 linked.append('appended');
 linked.prepend('prepended');
 
-console.log(linked.size());
+console.log(linked.tail());
