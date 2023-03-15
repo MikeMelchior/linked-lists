@@ -16,6 +16,10 @@ class LinkedList {
         this.list.unshift(newNode);
     }
 
+    size () {
+        return this.list.length
+    }
+
 }
 
 class Node {
@@ -29,4 +33,4 @@ let linked = new LinkedList;
 linked.append('appended');
 linked.prepend('prepended');
 
-console.log(linked);
+console.log(linked.size());
