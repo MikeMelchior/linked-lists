@@ -4,9 +4,16 @@ class LinkedList {
     }
 
     append(value) {
-        let newNode = new Node
+        let newNode = new Node;
         newNode.value = value;
         this.list.push(newNode);
+    }
+
+    prepend(value) {
+        let newNode = new Node;
+        newNode.value = value;
+        newNode.nextNode = this.list[0];
+        this.list.unshift(newNode);
     }
 
 }
@@ -19,4 +26,7 @@ class Node {
 }
 
 let linked = new LinkedList;
-linked.append('test');
+linked.append('appended');
+linked.prepend('prepended');
+
+console.log(linked);
