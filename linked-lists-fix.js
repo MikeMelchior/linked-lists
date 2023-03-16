@@ -14,6 +14,16 @@ class LinkedList {
             tmp.nextNode = new Node(value);
         }
     }
+
+    prepend (value) {
+        if (!this.head) {
+            this.head = new Node(value);
+        } else {
+            let tmp = this.head;
+            this.head = new Node(value);
+            this.head.nextNode = tmp;
+        }
+    }
 }
 
 class Node {
