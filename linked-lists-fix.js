@@ -77,11 +77,26 @@ class LinkedList {
             let tmp = this.head; 
             while (tmp) {
                 if (tmp.value == value) {
-                    return true
+                    return true;
                 } else tmp = tmp.nextNode;
             }     
         }
-        return false
+        return false;
+    }
+
+    find (value) {
+        if (this.head) {
+            let count = 0;
+            let tmp = this.head;
+            while (tmp.nextNode && tmp.value != value) {
+                count++;
+                tmp = tmp.nextNode;
+            }
+            if (tmp.value == value) {
+                return count;
+            }
+        }
+        return 'No such node';
     }
 
 }
