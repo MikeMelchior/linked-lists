@@ -59,6 +59,19 @@ class LinkedList {
         }
     }
 
+    pop () {
+        if (this.head) {
+            let tmp = this.head;
+            let tmc = this.length;
+            while (tmc > 2) {
+                tmc--;
+                tmp = tmp.nextNode;
+            }
+            tmp.nextNode = null;
+            this.length--;
+        }
+    }
+
 
 
 }
@@ -77,5 +90,7 @@ let list = new LinkedList;
 list.append('thing');
 list.append('another');
 list.prepend('im first!');
+list.append('fourth');
+
 
 console.log(list);
