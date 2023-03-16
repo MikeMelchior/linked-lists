@@ -1,125 +1,171 @@
 class LinkedList {
-    constructor() {
-        this.list = [];
+    length = 0;
+    constructor () {
+        this.head = null;
     }
 
-    append(value) {
-        let newNode = new Node;
-        newNode.value = value;
-        // if list is not empty then change pointer
-        // of last element to point to appended element
-        if (this.list.length > 0) {
-            this.list[this.list.length - 1].nextNode = newNode;
+    append (value) {
+        if (!this.head) {
+            this.head = new Node(value)
+            this.length++;
+        } else {
+            let tmp = this.head;
+            while (tmp.nextNode) {
+                tmp = tmp.nextNode;
+            }
+            tmp.nextNode = new Node(value);
+            this.length++;
         }
-        this.list.push(newNode);
     }
 
-    prepend(value) {
-        let newNode = new Node;
-        newNode.value = value;
-        newNode.nextNode = this.list[0];
-        this.list.unshift(newNode);
+    prepend (value) {
+        if (!this.head) {
+            this.head = new Node(value);
+            this.length++;
+        } else {
+            let tmp = this.head;
+            this.head = new Node(value);
+            this.head.nextNode = tmp; 
+            this.length++;
+        }
     }
 
     size () {
-        return this.list.length;
+        return this.length;
     }
 
-    head () {
-        return this.list[0];
+    headNode () {
+        return this.head;
     }
-
+    
     tail () {
-        return this.list[this.list.length -1];
+        let tmp = this.head;
+        while (tmp.nextNode) {
+            tmp = tmp.nextNode;
+        }
+        return tmp;
     }
 
     at (index) {
-        return this.list[index];
+        try {
+            let tmp = this.head;
+            while (index > 0 ) {
+                tmp = tmp.nextNode;
+                index--;
+            }
+            return tmp;
+        } catch {
+            console.log('No such node exists');
+        }
     }
 
     pop () {
-        this.list.pop();
-        this.list[this.list.length-1].nextNode = null;
+        if (this.head) {
+            let tmp = this.head;
+            let tmc = this.length;
+            while (tmc > 2) {
+                tmc--;
+                tmp = tmp.nextNode;
+            }
+            tmp.nextNode = null;
+            this.length--;
+        }
     }
 
     contains (value) {
-        for (let node of this.list) {
-            if (node.value == value) {
-                return true;
-            }
+        if (this.head) {
+            let tmp = this.head; 
+            while (tmp) {
+                if (tmp.value == value) {
+                    return true;
+                } else tmp = tmp.nextNode;
+            }     
         }
         return false;
     }
 
     find (value) {
-        for (let node of this.list) {
-            if (node.value == value) {
-                return this.list.indexOf(node);
+        if (this.head) {
+            let count = 0;
+            let tmp = this.head;
+            while (tmp.nextNode && tmp.value != value) {
+                count++;
+                tmp = tmp.nextNode;
+            }
+            if (tmp.value == value) {
+                return count;
             }
         }
-        return null;
+        return 'No such node';
     }
 
     toString () {
-        let string = '';
-        this.list.forEach(node => {
-            string+= `( ${node.value} ) -> `;
-        });
-        string+= 'null';
-        return string;
+        if (this.head) {
+            let str = '';
+            let tmp = this.head;
+            while(tmp) {
+                str += `( ${tmp.value} ) -> `;
+                tmp = tmp.nextNode;
+            }
+            str += 'null'
+            return str;
+        }
     }
 
-    insertAt (value, index) {
-        let listA = this.list.splice(0, index);
-        let listB = this.list.splice(0);
-        // change element to left of 
-        // insert's next pointer
-        listA[index - 1].nextNode = value;
-        // add next pointer to new node
-        value.nextNode = listB[0]
-        // add all parts back into list
-        this.list.push(...listA, value, ...listB);
+    // EXTRA CREDIT~~~~~~~~~~~~~~~~
+
+    insertAt (value, index) { 
+        try {
+            let tmp = this.head;
+            while(index > 1) {
+                tmp = tmp.nextNode;
+                index--;
+            }
+            let newNode = new Node(value);
+            newNode.nextNode = tmp.nextNode;
+            tmp.nextNode = newNode;
+            this.length++;
+        } catch(e) {
+            console.log(e);
+        }
     }
 
     removeAt (index) {
-        let listA = this.list.splice(0, index);
-        let listB = this.list.splice(0);
-        listB.shift();
-        
-        listA[index-1].nextNode = listB[0];
-        this.list.push(...listA, ...listB);
+        if (index == 0) {
+            this.head = this.head.nextNode;
+            this.length--;
+            return;
+        }
+        try {
+            let tmp = this.head;
+            while (index > 1) {
+                tmp = tmp.nextNode;
+                index--;
+            }
+            console.log(tmp)
+            tmp.nextNode = tmp.nextNode.nextNode;
+            this.length--;
+        } catch(e) {
+            console.log(e)
+        }
     }
 
 }
 
 class Node {
-    constructor(value=null) {
-        this.nextNode = null;
+    constructor (value = null) {
         this.value = value;
+        this.nextNode = null;
     }
 }
 
-let linked = new LinkedList;
 
-linked.append('a');  // linked == ( a ) -> null
-linked.prepend('b'); // linked == ( b ) -> ( a ) -> null
-linked.append('c'); // linked == ( b ) -> ( a ) -> ( c ) -> null
-
-// linked.size() ...  3
-// linked.head() ... Node {nextNode: Node, value: 'b'}
-// linked.tail() ... Node {nextNode: Node, value: 'c'}
-// linked.at(1) ... Node {nextNode: Node, value: 'a'}
-// linked.pop() ... '( b ) -> ( a ) -> null'
-// linked.contains('c') ... true;
-// linked.contains('d') ... false;
-// linked.find('a') ... 1;
-// linked.toString() ... '( b ) -> ( a ) -> ( c ) -> null'
-
-// let someNode = new Node('d');
-// linked.insertAt(someNode, 2)
-// linked.toString() ... ( b ) -> ( a ) -> ( d ) -> ( c ) -> null
-
-// linked.removeAt(2)
-// linked.toString() ... ( b ) -> ( a ) -> null
+let list = new LinkedList;
 
 
+list.append('thing');
+list.append('another');
+list.prepend('im first!');
+list.append('another thing');
+
+// all methods tested and working on final commit
