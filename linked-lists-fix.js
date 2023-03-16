@@ -99,6 +99,19 @@ class LinkedList {
         return 'No such node';
     }
 
+    toString () {
+        if (this.head) {
+            let str = '';
+            let tmp = this.head;
+            while(tmp) {
+                str += `( ${tmp.value} ) -> `;
+                tmp = tmp.nextNode;
+            }
+            str += 'null'
+            return str;
+        }
+    }
+
 }
 
 class Node {
