@@ -46,6 +46,20 @@ class LinkedList {
         return tmp;
     }
 
+    at (index) {
+        try {
+            let tmp = this.head;
+            while (index > 0 ) {
+                tmp = tmp.nextNode;
+                index--;
+            }
+            return tmp;
+        } catch {
+            console.log('No such node exists');
+        }
+    }
+
+
 
 }
 
