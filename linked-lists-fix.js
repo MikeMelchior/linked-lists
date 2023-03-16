@@ -112,6 +112,44 @@ class LinkedList {
         }
     }
 
+    // EXTRA CREDIT~~~~~~~~~~~~~~~~
+
+    insertAt (value, index) { 
+        try {
+            let tmp = this.head;
+            while(index > 1) {
+                tmp = tmp.nextNode;
+                index--;
+            }
+            let newNode = new Node(value);
+            newNode.nextNode = tmp.nextNode;
+            tmp.nextNode = newNode;
+            this.length++;
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    removeAt (index) {
+        if (index == 0) {
+            this.head = this.head.nextNode;
+            this.length--;
+            return;
+        }
+        try {
+            let tmp = this.head;
+            while (index > 1) {
+                tmp = tmp.nextNode;
+                index--;
+            }
+            console.log(tmp)
+            tmp.nextNode = tmp.nextNode.nextNode;
+            this.length--;
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
 }
 
 class Node {
@@ -128,7 +166,6 @@ let list = new LinkedList;
 list.append('thing');
 list.append('another');
 list.prepend('im first!');
-list.append('fourth');
-
+list.append('another thing');
 
 console.log(list);
